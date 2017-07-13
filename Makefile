@@ -3,6 +3,7 @@ KERN=/root/linux-3.0.8
 CUR=`pwd`
 obj-m:=leddriver3.o
 
+
 all:
 	make -C $(KERN) M=$(CUR) modules
 
