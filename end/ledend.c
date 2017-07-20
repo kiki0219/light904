@@ -40,33 +40,7 @@ void *  send_info(void*arg)
 void *  recv_info(void*arg)
 {
     thread_block  thread_bl=*(thread_block*)arg;
-    communication_info  c_info;
-    // while(1)
-    // {
-    //     bzero(c_info.msg,sizeof(c_info.msg));
-    //     //recvfrom(thread_bl.fd,&c_info,sizeof(c_info),0,NULL,NULL);
-    //     //recvfrom(thread_bl.fd,&c_info,sizeof(c_info),0,(struct sockaddr*)&thread_bl.addr,thread_bl.addr_len);
-    //     recv(thread_bl.fd,&c_info,sizeof(c_info)-1,0);
-    //     printf("recv %s send %s\n",c_info.dest_client_id,c_info.msg);
-        int fd=open("dev/led",O_WRONLY);
-        if(fd<0)
-        {
-            printf("devices open faild\n");
-        }
-        int num=1;
-        write(fd,&num,1);
-        while(1)
-        {
-            //通信
-            bzero(c_info.msg,sizeof(c_info.msg));
-            recv(thread_bl.fd,&c_info,sizeof(c_info)-1,0);
-            //gpio
-            num=atoi(c_info.msg);
-            printf("%d\n",num );//显示输入值
-            int ret=write(fd,&num,1);
-        }
-        close(fd);
-    // }
+   
 }
 
 int main(int argc,const char* argv[])
@@ -151,9 +125,9 @@ int main(int argc,const char* argv[])
             thread_block  thread_bl;
             thread_bl.fd=client_fd;
             thread_bl.addr=server_addr;
-            thread_bl.addr_len=sizeof(server_addr);
+            thread_bl.addr_len=sizeof(server_addr); 
             //线程实现消息收发   
-            pthread_t  pid1,pid2;
+          /*   pthread_t  pid1,pid2;
             int r=pthread_create(&pid1,NULL,send_info,&thread_bl);
             while(r==-1)
             {
@@ -165,7 +139,36 @@ int main(int argc,const char* argv[])
                 r=pthread_create(&pid2,NULL,recv_info,&thread_bl);
             }      
             pthread_join(pid1,NULL);
-            pthread_join(pid2,NULL);
+            pthread_join(pid2,NULL); */
+			 communication_info  c_info;
+    // while(1)
+    // {
+    //     bzero(c_info.msg,sizeof(c_info.msg));
+    //     //recvfrom(thread_bl.fd,&c_info,sizeof(c_info),0,NULL,NULL);
+    //     //recvfrom(thread_bl.fd,&c_info,sizeof(c_info),0,(struct sockaddr*)&thread_bl.addr,thread_bl.addr_len);
+    //     recv(thread_bl.fd,&c_info,sizeof(c_info)-1,0);
+    //     printf("recv %s send %s\n",c_info.dest_client_id,c_info.msg);
+        int fd=open("dev/led",O_WRONLY);
+        if(fd<0)
+        {
+            printf("devices open faild\n");
+        }
+        int num=1;
+        write(fd,&num,1);
+        while(1)
+        {
+            //通信
+            bzero(c_info.msg,sizeof(c_info.msg));
+            recv(thread_bl.fd,&c_info,sizeof(c_info)-1,0);
+            //gpio
+            num=atoi(c_info.msg);
+            printf("%d\n",num );//显示输入值
+            int ret=write(fd,&num,1);
+        }
+        close(fd);
+    // }
+			
+			
         }        
     }
     else 

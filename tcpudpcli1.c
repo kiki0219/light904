@@ -65,9 +65,9 @@ int main(int argc,const char* argv[])
     struct  sockaddr_in  server_addr;
     bzero(&server_addr,sizeof(server_addr));
     server_addr.sin_family=AF_INET;
-    server_addr.sin_port=htons(1234);
-    //server_addr.sin_addr.s_addr=inet_addr("47.95.9.185");
-    server_addr.sin_addr.s_addr=INADDR_ANY;
+    server_addr.sin_port=htons(8888);
+    server_addr.sin_addr.s_addr=inet_addr("47.95.9.185");
+    //server_addr.sin_addr.s_addr=INADDR_ANY;
     if(connect(client_fd,(struct sockaddr*)&server_addr,sizeof(server_addr))==0)
     {
         //输入客户端信息
